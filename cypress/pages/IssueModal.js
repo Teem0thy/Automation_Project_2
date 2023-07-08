@@ -26,7 +26,7 @@ class IssueModal {
         return cy.get(this.issueDetailModal);
     }
 
-    selectIssueType(issueType) {
+   /*  selectIssueType(issueType) {
         
         cy.get(this.issueType).children().find("div").invoke("text").then(($type) => {
             //console.log($type)
@@ -39,21 +39,21 @@ class IssueModal {
                 console.log($type)
             }
         })
+    } */
     
-    /* selectIssueType(issueType) {
+    selectIssueType(issueType) {
                 cy.get(this.issueType).click('bottomRight');
                 cy.get(`[data-testid="select-option:${issueType}"]`)
                 .trigger('mouseover')
                 .trigger('click');
             
-        }); */
+        };
 
 
         /* cy.get(this.issueType).click('bottomRight');
         cy.get(`[data-testid="select-option:${issueType}"]`)
             .trigger('mouseover')
             .trigger('click'); */
-    }
 
     selectAssignee(assigneeName) {
         cy.get(this.assignee).click('bottomRight');
@@ -81,6 +81,17 @@ class IssueModal {
     createIssue(issueDetails) {
         this.getIssueModal().within(() => {
             this.selectIssueType(issueDetails.type);
+            this.editDescription(issueDetails.description);
+            this.editTitle(issueDetails.title);
+            this.selectAssignee(issueDetails.assignee);
+            this.selectReporter(issueDetails.reporter);
+            this.selectPriority(issueDetails.priority);
+            cy.get(this.submitButton).click();
+        });
+    }
+
+    createIssue2(issueDetails) {
+        this.getIssueModal().within(() => {
             this.editDescription(issueDetails.description);
             this.editTitle(issueDetails.title);
             this.selectAssignee(issueDetails.assignee);

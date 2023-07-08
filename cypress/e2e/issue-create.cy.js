@@ -78,18 +78,18 @@ describe('Issue create', () => {
     
   });
   
-  it.only('Create new issue with random data', () => {
+  it('Create new issue with random data', () => {
     
     const issueDetails = {
       title: faker.word.noun(),
-      type: "Bug",
+      type: "Task",
       description: faker.lorem.sentence(5),
       assignee: "Pickle Rick",
       reporter: "Baby Yoda",
       priority: "Low",
     };
     
-    IssueModal.createIssue(issueDetails);
+    IssueModal.createIssue2(issueDetails);
     IssueModal.ensureIssueIsCreated(5, issueDetails)
     
     
