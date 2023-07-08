@@ -7,6 +7,8 @@ class IssueModal {
         this.issueType = '[data-testid="select:type"]';
         this.descriptionField = '.ql-editor';
         this.assignee = '[data-testid="select:userIds"]';
+        this.reporter = '[data-testid="select:reporterId"]';
+        this.priority = '[data-testid="select:priority"]';
         this.backlogList = '[data-testid="board-list:backlog"]';
         this.issuesList = '[data-testid="list-issue"]';
         this.deleteButton = '[data-testid="icon:trash"]';
@@ -25,15 +27,47 @@ class IssueModal {
     }
 
     selectIssueType(issueType) {
-        cy.get(this.issueType).click('bottomRight');
+        
+        cy.get(this.issueType).children().find("div").invoke("text").then(($type) => {
+            //console.log($type)
+            if ($type.should("not.be.equal", "Task")) {
+                cy.get(this.issueType).click('bottomRight');
+                cy.get(`[data-testid="select-option:${issueType}"]`)
+                .trigger('mouseover')
+                .trigger('click')
+            } else {
+                console.log($type)
+            }
+        })
+    
+    /* selectIssueType(issueType) {
+                cy.get(this.issueType).click('bottomRight');
+                cy.get(`[data-testid="select-option:${issueType}"]`)
+                .trigger('mouseover')
+                .trigger('click');
+            
+        }); */
+
+
+        /* cy.get(this.issueType).click('bottomRight');
         cy.get(`[data-testid="select-option:${issueType}"]`)
             .trigger('mouseover')
-            .trigger('click');
+            .trigger('click'); */
     }
 
     selectAssignee(assigneeName) {
         cy.get(this.assignee).click('bottomRight');
         cy.get(`[data-testid="select-option:${assigneeName}"]`).click();
+    }
+
+    selectReporter(reporterName) {
+        cy.get(this.reporter).click('bottomRight');
+        cy.get(`[data-testid="select-option:${reporterName}"]`).click();
+    }
+
+    selectPriority(priorityLevel) {
+        cy.get(this.priority).click('bottomRight');
+        cy.get(`[data-testid="select-option:${priorityLevel}"]`).click();
     }
 
     editTitle(title) {
@@ -50,6 +84,8 @@ class IssueModal {
             this.editDescription(issueDetails.description);
             this.editTitle(issueDetails.title);
             this.selectAssignee(issueDetails.assignee);
+            this.selectReporter(issueDetails.reporter);
+            this.selectPriority(issueDetails.priority);
             cy.get(this.submitButton).click();
         });
     }

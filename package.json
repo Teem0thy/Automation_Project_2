@@ -9,7 +9,11 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@faker-js/faker": "^8.0.1",
+    "@cypress/webpack-preprocessor": "^5.17.1",
+    "@faker-js/faker": "^8.0.2",
     "cypress": "^10.9.0"
+  },
+  "dependencies": {
+    "faker": "^6.6.6"
   }
 }
