@@ -26,11 +26,11 @@ class IssueModal {
         return cy.get(this.issueDetailModal);
     }
 
-   /*  selectIssueType(issueType) {
+    selectIssueType(issueType) {
         
-        cy.get(this.issueType).children().find("div").invoke("text").then(($type) => {
-            //console.log($type)
-            if ($type.should("not.be.equal", "Task")) {
+    cy.get(this.issueType).children().find("div").then(($type) => {
+            console.log($type)
+            if ($type.should('not.have.text', 'Task')) {
                 cy.get(this.issueType).click('bottomRight');
                 cy.get(`[data-testid="select-option:${issueType}"]`)
                 .trigger('mouseover')
@@ -39,16 +39,16 @@ class IssueModal {
                 console.log($type)
             }
         })
-    } */
+    }
     
-    selectIssueType(issueType) {
+    /* selectIssueType(issueType) {
                 cy.get(this.issueType).click('bottomRight');
                 cy.get(`[data-testid="select-option:${issueType}"]`)
                 .trigger('mouseover')
                 .trigger('click');
             
         };
-
+ */
 
         /* cy.get(this.issueType).click('bottomRight');
         cy.get(`[data-testid="select-option:${issueType}"]`)
@@ -153,6 +153,7 @@ class IssueModal {
         cy.get(this.issueDetailModal).get(this.closeDetailModalButton).first().click();
         cy.get(this.issueDetailModal).should('not.exist');
     }
+    
 }
 
 export default new IssueModal();
