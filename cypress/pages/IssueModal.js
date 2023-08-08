@@ -19,6 +19,7 @@ class IssueModal {
     }
 
     getIssueModal() {
+        cy.get(this.issueModal).should("be.visible");
         return cy.get(this.issueModal);
     }
 
@@ -26,9 +27,9 @@ class IssueModal {
         return cy.get(this.issueDetailModal);
     }
 
-    selectIssueType(issueType) {
+    /* selectIssueType(issueType) {
         
-    cy.get(this.issueType).children().find("div").then(($type) => {
+        cy.get(this.issueType).children().find("div").then(($type) => {
             console.log($type)
             if ($type.should('not.have.text', 'Task')) {
                 cy.get(this.issueType).click('bottomRight');
@@ -39,16 +40,17 @@ class IssueModal {
                 console.log($type)
             }
         })
-    }
-    
-    /* selectIssueType(issueType) {
+        
+    } */
+    selectIssueType(issueType) {
                 cy.get(this.issueType).click('bottomRight');
                 cy.get(`[data-testid="select-option:${issueType}"]`)
                 .trigger('mouseover')
                 .trigger('click');
             
         };
- */
+    
+
 
         /* cy.get(this.issueType).click('bottomRight');
         cy.get(`[data-testid="select-option:${issueType}"]`)
@@ -71,7 +73,8 @@ class IssueModal {
     }
 
     editTitle(title) {
-        cy.get(this.title).debounced('type', title);
+        //cy.get(this.title).debounced('type', title);
+        cy.get(this.title).type(title);
     }
 
     editDescription(description) {
@@ -80,12 +83,12 @@ class IssueModal {
 
     createIssue(issueDetails) {
         this.getIssueModal().within(() => {
-            this.selectIssueType(issueDetails.type);
             this.editDescription(issueDetails.description);
             this.editTitle(issueDetails.title);
             this.selectAssignee(issueDetails.assignee);
             this.selectReporter(issueDetails.reporter);
             this.selectPriority(issueDetails.priority);
+            this.selectIssueType(issueDetails.type);
             cy.get(this.submitButton).click();
         });
     }

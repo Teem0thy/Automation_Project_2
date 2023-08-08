@@ -68,7 +68,7 @@ describe('Issue create', () => {
     
     const issueDetails = {
       title: faker.word.noun(),
-      type: "Task",
+      type: "Bug",
       description: faker.lorem.sentence(5),
       assignee: "Pickle Rick",
       reporter: "Baby Yoda",
